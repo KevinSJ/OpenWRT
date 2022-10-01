@@ -1,0 +1,3 @@
+[submodule "upstream-patches"]
+	path = upstream-patches
+	url = https://github.com/divestedcg/Divested-WRT.git
