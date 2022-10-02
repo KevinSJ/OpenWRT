@@ -12,6 +12,9 @@ name: Build OpenWrt
 
 on:
   repository_dispatch:
+  schedule:
+    # Runs on every 15th of the month
+    - cron: 0 0 */15 * *
   workflow_dispatch:
     inputs:
       ssh:
@@ -88,6 +91,34 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
+    - name: Cache1
+      id: cache-build_dir
+      uses: actions/cache@v3
+      with:
+        path: /workdir/openwrt/build_dir/
+        key: ${{ runner.os }}-${{ hashFiles('.ci/build_dir') }}
+
+    - name: Cache2
+      id: cache-staging_dir
+      uses: actions/cache@v3
+      with:
+        path: /workdir/openwrt/staging_dir/
+        key: ${{ runner.os }}-${{ hashFiles('.ci/staging_dir') }}
+
+    - name: Cache3
+      id: cache-tmp
+      uses: actions/cache@v3
+      with:
+        path: /workdir/openwrt/tmp
+        key: ${{ runner.os }}-${{ hashFiles('.ci/tmp') }}
+
+    - name: Cache4
+      id: cache-build_log
+      uses: actions/cache@v3
+      with:
+        path: /workdir/openwrt/log/
+        key: ${{ runner.os }}-${{ hashFiles('.ci/log') }}
+
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
@@ -117,6 +148,7 @@ jobs:
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+
 
     - name: Compile the firmware
       id: compile
