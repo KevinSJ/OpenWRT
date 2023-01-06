@@ -17,5 +17,7 @@
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 
+# Use last stable release that's not rc
 git checkout $(git tag -l|grep -v 'rc'|tail -1)
+# Apply patches
 git am $GITHUB_WORKSPACE/$PATCH_DIR/*.patch --3way
