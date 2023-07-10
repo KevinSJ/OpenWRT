@@ -124,7 +124,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: /workdir/openwrt/log/
-        key: ${{ runner.os }}-${{ hashFiles('/workdir/openwrt/log/') }}
+        key: cache-build_log
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
