@@ -13,8 +13,8 @@
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
-# Use last stable release that's not rc
-git checkout $(git tag -l|grep -v 'rc'|tail -1)
+# 20230710: Using latest tag, could be rc
+git checkout $(git tag -l|tail -1)
 
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
