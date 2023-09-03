@@ -13,8 +13,8 @@
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
-# 20230710: Using latest tag, could be rc
-git checkout $(git tag -l|tail -1)
+# Use last stable release that's not rc
+git checkout $(git tag -l|grep -v 'rc'|tail -1)
 
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
@@ -23,7 +23,7 @@ git checkout $(git tag -l|tail -1)
 echo 'src-git argontheme https://github.com/jerrykuku/luci-theme-argon.git' >>feeds.conf.default
 #echo 'src-git immortalwrt https://github.com/immortalwrt/packages' >>feeds.conf.default
 
-rm $GITHUB_WORKSPACE/$PATCH_DIR/0009-Add-divblock-an-extremely-simple-ad-blocker.patch
+rm $GITHUB_WORKSPACE/$PATCH_DIR/0010-Add-divblock-an-extremely-simple-ad-blocker.patch
 
 # Apply patches
 git am $GITHUB_WORKSPACE/$PATCH_DIR/*.patch --3way
