@@ -23,7 +23,7 @@ git checkout "$version_tag"
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 echo 'src-git argontheme https://github.com/jerrykuku/luci-theme-argon.git' >> feeds.conf.default
 #echo 'src-git immortalwrt https://github.com/immortalwrt/packages' >>feeds.conf.default
-wget https://downloads.openwrt.org/releases/"$version_tag"/targets/mvebu/cortexa9/llvm-bpf-15.0.7.Linux-x86_64.tar.xz
+wget https://downloads.openwrt.org/releases/"$version_tag|tr -d 'v'"/targets/mvebu/cortexa9/llvm-bpf-15.0.7.Linux-x86_64.tar.xz
 tar -xvaf llvm-bpf-15.0.7.Linux-x86_64.tar.xz
 
 rm $GITHUB_WORKSPACE/$PATCH_DIR/0010-Add-divblock-an-extremely-simple-ad-blocker.patch
