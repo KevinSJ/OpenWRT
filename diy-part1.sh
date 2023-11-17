@@ -16,7 +16,7 @@
 # 20230710: Using latest tag, could be rc
 version_tag="$(git tag -l|grep -v 'rc'|tail -1)"
 git checkout "$version_tag"
-llvm_tag=$(cat $version_tag|tr -d 'v')
+llvm_tag=$(echo $version_tag|tr -d 'v')
 #
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
