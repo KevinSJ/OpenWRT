@@ -14,14 +14,17 @@
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
 # 20230710: Using latest tag, could be rc
-git checkout $(git tag -l|grep -v 'rc'|tail -1)
-
+version_tag="$(git tag -l|grep -v 'rc'|tail -1)"
+git checkout "$version_tag"
+#
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-echo 'src-git argontheme https://github.com/jerrykuku/luci-theme-argon.git' >>feeds.conf.default
+echo 'src-git argontheme https://github.com/jerrykuku/luci-theme-argon.git' >> feeds.conf.default
 #echo 'src-git immortalwrt https://github.com/immortalwrt/packages' >>feeds.conf.default
+wget https://downloads.openwrt.org/releases/"$version_tag"/targets/mvebu/cortexa9/llvm-bpf-15.0.7.Linux-x86_64.tar.xz
+tar -xvaf llvm-bpf-15.0.7.Linux-x86_64.tar.xz
 
 rm $GITHUB_WORKSPACE/$PATCH_DIR/0010-Add-divblock-an-extremely-simple-ad-blocker.patch
 

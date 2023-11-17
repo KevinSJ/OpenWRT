@@ -120,11 +120,11 @@ jobs:
         key: cache-tmp
 
     - name: Cache4
-      id: cache-build_log
+      id: cache-llvm
       uses: actions/cache@v3
       with:
-        path: /workdir/openwrt/log/
-        key: cache-build_log
+        path: /workdir/openwrt/llvm-bpf-15.0.7.Linux-x86_64
+        key: cache-llvm
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
