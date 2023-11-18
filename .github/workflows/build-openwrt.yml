@@ -196,7 +196,7 @@ jobs:
       id: tag
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=$(date +"%Y.%m.%d-%H%M")-$(git tag -l|grep -v 'rc'|tail -1)">>$GITHUB_OUTPUT
+        echo "release_tag=$(date +"%Y.%m.%d-%H%M")">>$GITHUB_OUTPUT
         touch release.txt
         echo "status=success">>$GITHUB_OUTPUT
 
