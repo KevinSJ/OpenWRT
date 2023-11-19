@@ -106,20 +106,13 @@ jobs:
         key: cache-build_dir
 
     - name: Cache2
-      id: cache-staging_dir
-      uses: actions/cache@v3
-      with:
-        path: /workdir/openwrt/staging_dir/
-        key: cache-staging_dir
-
-    - name: Cache3
       id: cache-tmp
       uses: actions/cache@v3
       with:
         path: /workdir/openwrt/tmp
         key: cache-tmp
 
-    - name: Cache4
+    - name: Cache3
       id: cache-llvm
       uses: actions/cache@v3
       with:
