@@ -1,0 +1,90 @@
+name: Build with Image Builder
+
+on:
+  repository_dispatch:
+  schedule:
+    # Runs on every 15th of the month
+    - cron: 0 0 */15 * *
+
+env:
+  TZ: Pacific/Auckland
+  IMAGE_BUILDER_SH: image-builder_build.sh
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        set +e
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo -E apt-get -y purge \
+          azure-cli \
+          ghc* \
+          zulu* \
+          hhvm \
+          llvm* \
+          firefox \
+          google* \
+          dotnet* \
+          powershell \
+          openjdk* \
+          mysql* \
+          php*
+        sudo -E apt-get update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex node-uglify git p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx-ucl libelf-dev autoconf automake libtool autopoint device-tree-compiler gcc-multilib antlr3 gperf wget curl swig rsync coreutils clang-12 g++ libreadline-dev ccache curl wget vim nano python3 python3-distutils python-pip python3-pip python-ply python3-ply haveged lrzsz scons ecj fastjar re2c xz-utils tar libbpf-dev llvm-12
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+        sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+
+    - name: Download and extract image builder
+      run: |
+        wget -O - https://github.com/KevinSJ/OpenWRT/releases/latest/download/openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64.tar.xz | tar xzvf -
+
+    - name: Build image
+      run: |
+        chmod +x $IMAGE_BUILDER_SH
+        cd openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64
+        $GITHUB_WORKSPACE/$IMAGE_BUILDER_SH
+        echo "status=success">>$GITHUB_OUTPUT
+
+    - name: Organize files
+      id: organize
+      run: |
+        cd openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64/bin/targets/*/*
+        rm -rf packages
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "status=success" >> $GITHUB_OUTPUT
+
+    - name: Upload firmware directory
+      uses: actions/upload-artifact@main
+      if: steps.organize.outputs.status == 'success' && !cancelled()
+      with:
+        name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: ${{ env.FIRMWARE }}
+
+    - name: Generate release tag
+      id: tag
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+      run: |
+        echo "release_tag=$(date +"%Y.%m.%d-%H%M")">>$GITHUB_OUTPUT
+        touch release.txt
+        echo "status=success">>$GITHUB_OUTPUT
+
+    - name: Upload firmware to release
+      uses: softprops/action-gh-release@v1
+      if: steps.tag.outputs.status == 'success' && !cancelled()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.tag.outputs.release_tag }}
+        body_path: release.txt
+        files: ${{ env.FIRMWARE }}/*
+
