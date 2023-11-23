@@ -46,7 +46,7 @@ jobs:
 
     - name: Download and extract image builder
       run: |
-        wget -O - https://github.com/KevinSJ/OpenWRT/releases/latest/download/openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64.tar.xz | tar xzvf -
+        wget -O - https://github.com/KevinSJ/OpenWRT/releases/latest/download/openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64.tar.xz | tar -Jxf -
 
     - name: Build image
       run: |
