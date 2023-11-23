@@ -2,9 +2,10 @@ name: Build with Image Builder
 
 on:
   repository_dispatch:
+  workflow_dispatch:
   schedule:
     # Runs on every 15th of the month
-    - cron: 0 0 */15 * *
+    - cron: 0 0 */16 * *
 
 env:
   TZ: Pacific/Auckland
