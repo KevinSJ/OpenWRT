@@ -53,7 +53,7 @@ jobs:
     - name: Get latest official version
       working-directory: /workdir
       run: |
-        echo "LATEST=$(curl -s "https://downloads.openwrt.org/releases/" | grep href | grep -v '(root)' | grep -v KeyCDN | grep -v faillogs | grep -v 'packages-' | sed s/'<\/a>.*'/''/ | sed s/'<tr><td class="n">'/''/ | cut -d'>' -f2 | grep -v '\-rc' | sort | tail -n1)" >> $GITHUB_ENV
+        echo "LATEST=$(curl -s "https://downloads.openwrt.org/releases/" | grep href | grep -v '(root)' | grep -v "Fastly CDN" | grep -v faillogs | grep -v 'packages-' | sed s/'<\/a>.*'/''/ | sed s/'<tr><td class="n">'/''/ | cut -d'>' -f2 | grep -v '\-rc' | sort | tail -n1)" >> $GITHUB_ENV
 
     - name: Download and extract image builder
       working-directory: /workdir
