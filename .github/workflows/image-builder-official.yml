@@ -61,6 +61,7 @@ jobs:
         wget -O - "https://downloads.openwrt.org/releases/$LATEST/targets/mvebu/cortexa9/openwrt-imagebuilder-$LATEST-mvebu-cortexa9.Linux-x86_64.tar.xz" | tar -Jxf -
 
     - name: Build image
+      id: build
       working-directory: /workdir
       run: |
         chmod +x $GITHUB_WORKSPACE/$IMAGE_BUILDER_SH
@@ -86,9 +87,9 @@ jobs:
 
     - name: Generate release tag
       id: tag
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+      if: steps.build.outputs.status == 'success' && !cancelled()
       run: |
-        echo "release_tag=$(date +"%Y.%m.%d-%H%M")">>$GITHUB_OUTPUT
+        echo "release_tag=$(date +"%Y.%m.%d-%H%M")-official">>$GITHUB_OUTPUT
         touch release.txt
         echo "status=success">>$GITHUB_OUTPUT
 
