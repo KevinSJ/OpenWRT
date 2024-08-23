@@ -69,9 +69,10 @@ jobs:
         echo "status=success">>$GITHUB_OUTPUT
 
     - name: Organize files
+      working-directory: /workdir
       id: organize
       run: |
-        cd "openwrt-imagebuilder-$LATEST-mvebu-cortexa9.Linux-x86_64/bin/targets/*/*"
+        cd openwrt-imagebuilder-$LATEST-mvebu-cortexa9.Linux-x86_64/bin/targets/*/*
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
