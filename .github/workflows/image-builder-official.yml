@@ -58,7 +58,7 @@ jobs:
     - name: Download and extract image builder
       working-directory: /workdir
       run: |
-        wget -O - https://downloads.openwrt.org/releases/$LATEST/targets/mvebu/cortexa9/openwrt-imagebuilder-$LATEST-mvebu-cortexa9.Linux-x86_64.tar.xz | tar -Jxf -
+        wget -O - "https://downloads.openwrt.org/releases/$LATEST/targets/mvebu/cortexa9/openwrt-imagebuilder-$LATEST-mvebu-cortexa9.Linux-x86_64.tar.xz" | tar -Jxf -
 
     - name: Build image
       working-directory: /workdir
