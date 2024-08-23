@@ -64,14 +64,14 @@ jobs:
       working-directory: /workdir
       run: |
         chmod +x $GITHUB_WORKSPACE/$IMAGE_BUILDER_SH
-        cd openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64
+        cd openwrt-imagebuilder-$LATEST-mvebu-cortexa9.Linux-x86_64
         $GITHUB_WORKSPACE/$IMAGE_BUILDER_SH
         echo "status=success">>$GITHUB_OUTPUT
 
     - name: Organize files
       id: organize
       run: |
-        cd openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64/bin/targets/*/*
+        cd "openwrt-imagebuilder-$LATEST-mvebu-cortexa9.Linux-x86_64/bin/targets/*/*"
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
