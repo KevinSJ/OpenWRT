@@ -88,16 +88,6 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: Load custom feeds
-      env:
-        GIT_COMMITTER_NAME: "GITHUB_WORKFLOW"
-        EMAIL: "root@localhost"
-      run: |
-        chmod +x $DIY_P1_SH
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P1_SH
-
     - name: Cache1
       id: cache-build_dir
       uses: actions/cache@v4
@@ -118,6 +108,16 @@ jobs:
       with:
         path: /workdir/openwrt/llvm-bpf-15.0.7.Linux-x86_64
         key: cache-llvm
+
+    - name: Load custom feeds
+      env:
+        GIT_COMMITTER_NAME: "GITHUB_WORKFLOW"
+        EMAIL: "root@localhost"
+      run: |
+        chmod +x $DIY_P1_SH
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
