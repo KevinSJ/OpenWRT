@@ -20,7 +20,7 @@
 
 # 20240824
 version_tag="$(git tag -l|grep -v 'rc'|tail -1)"
-#git checkout "$version_tag"
+git checkout "$version_tag"
 llvm_tag=$(echo $version_tag|tr -d 'v')
 
 #
