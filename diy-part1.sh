@@ -31,7 +31,8 @@ rm $GITHUB_WORKSPACE/$PATCH_DIR/0010-Add-divblock-an-extremely-simple-ad-blocker
 
 # Apply patches
 
-git am $GITHUB_WORKSPACE/$PATCH_DIR/*.patch --3way || (git checkout --theirs . && git add . && git am --continue)
-#git am $GITHUB_WORKSPACE/$PATCH_DIR/*.patch --3way || git am --skip
+#git am $GITHUB_WORKSPACE/$PATCH_DIR/*.patch --3way || (git checkout --theirs . && git add . && git am --continue)
+# skip patch if failed.
+git am $GITHUB_WORKSPACE/$PATCH_DIR/*.patch --3way || git am --skip
 
 
