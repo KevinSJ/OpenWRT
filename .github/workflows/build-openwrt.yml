@@ -43,7 +43,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: true
 
@@ -100,21 +100,21 @@ jobs:
 
     - name: Cache1
       id: cache-build_dir
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: /workdir/openwrt/build_dir/
         key: cache-build_dir
 
     - name: Cache2
       id: cache-tmp
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: /workdir/openwrt/tmp
         key: cache-tmp
 
     - name: Cache3
       id: cache-llvm
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: /workdir/openwrt/llvm-bpf-15.0.7.Linux-x86_64
         key: cache-llvm
@@ -194,7 +194,7 @@ jobs:
         echo "status=success">>$GITHUB_OUTPUT
 
     - name: Upload firmware to release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -202,12 +202,6 @@ jobs:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
-
-    - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@main
-      with:
-        retain_days: 1
-        keep_minimum_runs: 3
 
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.1.0
