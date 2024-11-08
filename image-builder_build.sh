@@ -9,7 +9,7 @@ losetup swap-utils \
 mwlwifi-firmware-88w8864 netifd odhcpd \
 odhcp6c openssh-sftp-server opkg ppp ppp-mod-pppoe procd \
 procd-seccomp resolveip swconfig uboot-envtools uci uclient-fetch urandom-seed \
-urngd wget-ssl -wpad-basic-mbedtls zram-swap aria2 mkf2fs \
+urngd wget-ssl -wpad-basic-mbedtls wpad-openssl zram-swap aria2 mkf2fs \
 vim-runtime vim-full unbound-control unbound-daemon \
 luci-proto-ipv6 luci-proto-ppp \
 luci-theme-bootstrap luci-theme-openwrt luci-theme-openwrt-2020 luci-theme-material \
