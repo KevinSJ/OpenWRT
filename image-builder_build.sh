@@ -4,7 +4,7 @@
 PROFILE="linksys_wrt1200ac"
 BASE_PACKAGES="-dnsmasq -odhcpd-ipv6only base-files bash block-mount busybox ca-bundle coremark curl \
 dnsmasq-full dropbear ds-lite e2fsprogs fstools htop iwinfo \
-libc libgcc libustream-openssl logd \
+libc libgcc -libustream-openssl logd \
 losetup swap-utils \
 mwlwifi-firmware-88w8864 netifd odhcpd \
 odhcp6c openssh-sftp-server opkg ppp ppp-mod-pppoe procd \
