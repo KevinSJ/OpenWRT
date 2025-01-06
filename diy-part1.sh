@@ -35,7 +35,7 @@ tar -xvaf llvm-bpf-15.0.7.Linux-x86_64.tar.xz
 
 ln -sf $(realpath llvm-bpf-15.0.7.Linux-x86_64) llvm-bpf
 
-rm $GITHUB_WORKSPACE/$PATCH_DIR/0010-Add-divblock-an-extremely-simple-ad-blocker.patch
+rm $GITHUB_WORKSPACE/$PATCH_DIR/0008-Add-divblock-an-extremely-simple-ad-blocker.patch
 
 # Apply patches
 
