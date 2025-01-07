@@ -10,13 +10,13 @@ mwlwifi-firmware-88w8864 netifd odhcpd \
 odhcp6c openssh-sftp-server opkg ppp ppp-mod-pppoe procd \
 procd-seccomp resolveip swconfig uboot-envtools uci uclient-fetch urandom-seed \
 urngd wget-ssl -wpad-basic-mbedtls wpad-openssl zram-swap aria2 mkf2fs \
-vim-runtime vim-full unbound-control unbound-daemon \
+vim-runtime vim-full unbound-control unbound-daemon knot-dig knot-libs \
 luci-proto-ipv6 luci-proto-ppp \
 luci-theme-bootstrap luci-theme-openwrt luci-theme-openwrt-2020 luci-theme-material \
 luci-app-firewall luci-app-opkg luci-base luci-compat luci-lib-ipkg mtd \
 luci-app-adblock luci-app-advanced-reboot \
 luci-app-banip luci-app-commands \
-luci-app-ttyd luci-app-vnstat luci-app-unbound \
+luci-app-ttyd luci-app-vnstat2 luci-app-unbound \
 luci-app-uhttpd \
 luci-mod-dashboard luci-mod-admin-full \
 luci-app-hd-idle luci-app-ttyd luci-app-wifischedule \
