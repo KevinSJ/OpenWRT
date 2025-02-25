@@ -43,7 +43,13 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev patch unzip zlib1g-dev libc6-dev-i386 subversion flex node-uglify git p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx-ucl libelf-dev autoconf automake libtool autopoint device-tree-compiler gcc-multilib antlr3 gperf wget curl swig rsync coreutils clang-12 g++ libreadline-dev ccache curl wget vim nano python3 python3-distutils python-pip python3-pip python-ply python3-ply haveged lrzsz scons ecj fastjar re2c xz-utils tar libbpf-dev llvm-12
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev \
+              patch unzip zlib1g-dev libc6-dev-i386 subversion flex node-uglify git \
+              p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils \
+              upx-ucl libelf-dev autoconf automake libtool autopoint device-tree-compiler \
+              gcc-multilib antlr3 gperf wget curl swig rsync coreutils clang-12 g++ libreadline-dev \
+              ccache curl wget vim nano python3 python3-distutils python-pip python3-pip python-ply python3-ply \
+              haveged lrzsz scons ecj fastjar re2c xz-utils tar libbpf-dev llvm-12 zstd
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo timedatectl set-timezone "$TZ"
@@ -58,7 +64,7 @@ jobs:
     - name: Download and extract image builder
       working-directory: /workdir
       run: |
-        wget -O - "https://downloads.openwrt.org/releases/$LATEST/targets/mvebu/cortexa9/openwrt-imagebuilder-$LATEST-mvebu-cortexa9.Linux-x86_64.tar.xz" | tar -Jxf -
+        wget -O - "https://downloads.openwrt.org/releases/$LATEST/targets/mvebu/cortexa9/openwrt-imagebuilder-$LATEST-mvebu-cortexa9.Linux-x86_64.tar.zst" | tar --zstd -xvf -
 
     - name: Build image
       id: build
