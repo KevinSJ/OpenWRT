@@ -89,7 +89,7 @@ jobs:
       id: tag
       if: steps.build.outputs.status == 'success' && !cancelled()
       run: |
-        echo "release_tag=$(date +"%Y.%m.%d-%H%M")-custom">>$GITHUB_OUTPUT
+        echo "release_tag = $(date +"%Y.%m.%d-%H%M")-custom-image-builder">>$GITHUB_OUTPUT
         touch release.txt
         echo "status=success">>$GITHUB_OUTPUT
 
