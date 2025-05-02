@@ -70,6 +70,7 @@ jobs:
         echo "status=success">>$GITHUB_OUTPUT
 
     - name: Organize files
+      working-directory: /workdir
       id: organize
       run: |
         cd openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64/bin/targets/*/*
