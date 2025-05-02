@@ -62,6 +62,7 @@ jobs:
         wget -O - https://github.com/KevinSJ/OpenWRT/releases/latest/download/openwrt-imagebuilder-mvebu-cortexa9.Linux-x86_64.tar.zst | tar --zstd -xvf -
 
     - name: Build image
+      id: build
       working-directory: /workdir
       run: |
         chmod +x $GITHUB_WORKSPACE/$IMAGE_BUILDER_SH
