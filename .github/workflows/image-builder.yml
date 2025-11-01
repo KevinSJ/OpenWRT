@@ -1,11 +1,10 @@
-name: Build with Image Builder
+name: Build with Image Builder Custom
 
 on:
   repository_dispatch:
   workflow_dispatch:
-  schedule:
-    # Runs on every 15th of the month
-    - cron: 0 0 */16 * *
+  workflow_run:
+    workflows: ["Build OpenWrt"]
 
 env:
   TZ: Pacific/Auckland

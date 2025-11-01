@@ -1,4 +1,4 @@
-name: Build with Image Builder
+name: Build with Official Image Builder
 
 on:
   repository_dispatch:
