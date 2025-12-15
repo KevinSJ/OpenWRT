@@ -90,21 +90,21 @@ jobs:
 
     - name: Cache1
       id: cache-build_dir
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: /workdir/openwrt/build_dir/
         key: cache-build_dir
 
     - name: Cache2
       id: cache-tmp
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: /workdir/openwrt/tmp
         key: cache-tmp
 
     - name: Cache3
       id: cache-llvm
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: /workdir/openwrt/llvm-bpf-15.0.7.Linux-x86_64
         key: cache-llvm
